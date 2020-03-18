@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8680ee4b-df6f-4bbf-b9e7-59707dc05ea4" name="Default Changelist" comment="" />
+    <list default="true" id="8680ee4b-df6f-4bbf-b9e7-59707dc05ea4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/employees/Employees.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employees/Employees.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/employees/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employees/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/employees/models/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employees/models/Employee.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/employees/models/Tuple.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employees/models/Tuple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/employees/utils/CommonUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employees/utils/CommonUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Employees.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Employees.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Tuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Tuple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/CommonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/CommonUtil.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +28,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ZBCS8XCbB3fbO8gH1Yw364zcCz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -64,11 +81,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584303096455</updated>
-      <workItem from="1584303099909" duration="4586000" />
+      <workItem from="1584303099909" duration="4943000" />
+      <workItem from="1584567494062" duration="4284000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -9,15 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.BiConsumer;
 
 public class CommonUtil {
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final int ID_POS = 0;
     private static final int PROJECT_ID_POS = 1;
@@ -25,9 +21,12 @@ public class CommonUtil {
     private static final int DATE_TO_POS = 3;
 
     private Map<Integer, List<Employee>> projectEmployeesMap;
+    private Map<Tuple<Employee, Employee>, Long> employeePairsTimeWorkedMap;
+    private Tuple<Employee, Employee> longestWorkedEmployees;
 
     public CommonUtil() {
         projectEmployeesMap = new HashMap<>();
+        employeePairsTimeWorkedMap = new HashMap<>();
     }
 
     public void processFile(String filePath) {
@@ -56,41 +55,45 @@ public class CommonUtil {
         }
     }
 
-    public void getEmployeePairs() {
+    public Tuple<Employee, Employee> getEmployeePairs() {
         projectEmployeesMap.forEach((projectId, employees) -> {
-            Tuple<Employee, Employee> tuple = getTuple(employees);
-            System.out.println(
-                    "For project " + projectId + ": " +
-                            tuple.getData1() + " and " + tuple.getData2()
-            );
+            processProject(employees);
         });
+
+        boolean[] isFirst = {true};
+        employeePairsTimeWorkedMap.forEach((employeeEmployeeTuple, periodWorked) -> {
+            if(isFirst[0]) {
+                longestWorkedEmployees = employeeEmployeeTuple;
+                isFirst[0] = false;
+            } else {
+                if(employeePairsTimeWorkedMap.get(longestWorkedEmployees) < periodWorked) {
+                    longestWorkedEmployees = employeeEmployeeTuple;
+                }
+            }
+        });
+        return longestWorkedEmployees;
     }
 
-    private Tuple<Employee, Employee> getTuple(List<Employee> employees) {
+    private void processProject(List<Employee> employees) {
         if(employees.size()<=1){
-            return new Tuple<>(employees.get(0), null);
+            return;
         }
-        Employee employee1 = employees.get(0);
-        Employee employee2 = employees.get(1);
-        long maxPeriod = overlap(employees.get(0).getDateFrom(), employees.get(0).getDateTo(),
-                employees.get(1).getDateFrom(), employees.get(1).getDateTo());
-
         for (int i = 0; i < employees.size(); i++) {
             for (int j = i+1; j < employees.size(); j++) {
                  long period = overlap(employees.get(i).getDateFrom(), employees.get(i).getDateTo(),
                          employees.get(j).getDateFrom(), employees.get(j).getDateTo());
 
-                 if(period > maxPeriod) {
-                     maxPeriod = period;
-                     employee1 = employees.get(i);
-                     employee2 = employees.get(j);
-                 }
+                Tuple<Employee, Employee> employeeTuple = new Tuple<>(employees.get(i), employees.get(j));
 
+                //accumulate the period worked
+                if(employeePairsTimeWorkedMap.containsKey(employeeTuple)){
+                    employeePairsTimeWorkedMap.put(employeeTuple, employeePairsTimeWorkedMap.get(employeeTuple)+period);
+                }else {
+                    employeePairsTimeWorkedMap.put(employeeTuple, period);
+                }
             }
-
         }
 
-        return new Tuple<>(employee1, employee2);
     }
 
 
@@ -102,16 +105,15 @@ public class CommonUtil {
         return formatter.parse(dateString);
     }
 
-    public static long overlap(Date date1Start, Date date1End,
-                                 Date date2Start, Date date2End) {
-        long totalRange = Math.max(date1End.getTime(), date2End.getTime()) - Math.min(date1Start.getTime(), date2Start.getTime());
-        long sumOfRanges = (date1End.getTime() - date1Start.getTime()) + (date2End.getTime() - date2Start.getTime());
-        long overlappingInterval = 0;
-
-        if (sumOfRanges > totalRange) { // means they overlap
-            overlappingInterval = Math.min(date1End.getTime(), date2End.getTime()) - Math.max(date1Start.getTime(), date2Start.getTime());
+    private static long overlap(Date date1Start, Date date1End,
+                                Date date2Start, Date date2End) {
+        if (date2Start.getTime() > date1End.getTime() || date1Start.getTime() > date2End.getTime()){
+            return 0;
         }
 
-        return overlappingInterval;
+        long start = Math.max(date1Start.getTime(), date2Start.getTime());
+        long end = Math.min(date1End.getTime(), date2End.getTime());
+
+        return end-start;
     }
 }
